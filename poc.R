@@ -45,16 +45,36 @@ run <- max(abs(loss_gains), abs(gain_gains))
 x_range <- c(-run, run)
 y_range <- c(0, run)
 
+
+
 ggplot() +
-  geom_abline(slope = 100, intercept = 0, color = "white", linetype = "dashed") +
-  geom_abline(slope = lower_bound_proceeds/lower_bound_gains, intercept = 0, color = "pink", linetype = "solid", lwd = 1) +
-  geom_abline(slope = upper_bound_proceeds/upper_bound_gains, intercept = 0, color = "yellow", linetype = "solid", lwd = 1) +
+  geom_abline(slope = 100, intercept = 0, color = "white", linetype = "dotted") +
+  geom_abline(slope = lower_bound_proceeds/lower_bound_gains, intercept = 0, color = "#90EE90", linetype = "dashed", lwd = 1) +
+  geom_abline(slope = upper_bound_proceeds/upper_bound_gains, intercept = 0, color = "#90EE90", linetype = "dashed", lwd = 1) +
   geom_polygon(mapping=aes(x=c(0,lower_bound_gains/lower_bound_proceeds * run,upper_bound_gains/upper_bound_proceeds * run)
-                           , y=c(0,run,run))) +
+                           , y=c(0,run,run)),
+               fill = "#90EE90", alpha = 0.3) +
   geom_abline(slope = gain_proceeds/gain_gains, intercept = 0, color = "#00c805", linetype = "solid", lwd = 1) +
   geom_abline(slope = loss_proceeds/loss_gains, intercept = 0, color = "#ff5000", linetype = "solid", lwd = 1) +
+  geom_line(aes(c(-run*.95,-run*.9),c(run*.95,run*.95)), color = "#ff5000", linetype = "solid", lwd = 1) +
+  annotate(
+    geom = "text", x = -run*.89, y = run*.95, 
+    label = "Minimum", hjust = 0, vjust = 0, size = 4, col = "white"
+  ) +
+  geom_line(aes(c(-run*.95,-run*.9),c(run*.90,run*.90)), color = "#00c805", linetype = "solid", lwd = 1) +
+  annotate(
+    geom = "text", x = -run*.89, y = run*.90, 
+    label = "Maximum", hjust = 0, vjust = 0, size = 4, col = "white"
+  ) +
+  geom_rect(
+    aes(xmin = -run*.95, xmax = -run*.9, fill = "#90EE90"), 
+    ymin = run*.80, ymax = run*.85, alpha = 0.2
+  ) +
   coord_cartesian(xlim = x_range, ylim = y_range, expand = 0) + 
+  theme_void() +
   theme(
-    panel.background = element_rect(fill = "black",
-                                    colour = "black",
-                                    size = 0.5, linetype = "solid"))
+    panel.background = element_rect(fill = "black", color = "black", size = 0.5, linetype = "solid"),
+    legend.position = c(0.05, 0.95),
+    legend.justification = c(0, 1),
+    legend.background = element_rect(fill = "transparent")
+  )
