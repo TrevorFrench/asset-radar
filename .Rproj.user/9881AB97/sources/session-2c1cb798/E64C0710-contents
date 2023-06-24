@@ -60,7 +60,7 @@ function(input, output, session) {
     x_range <- c(-run, run)
     y_range <- c(0, run)
     # DRAW THE PLOT ----------------------------------------------------------------
-    ggplot() +
+    p <- ggplot() +
       geom_abline(slope = 100, intercept = 0, color = "white", linetype = "dotted") +
       geom_abline(slope = lower_bound_proceeds/lower_bound_gains, intercept = 0, color = "#90EE90", linetype = "dashed", lwd = 1) +
       geom_abline(slope = upper_bound_proceeds/upper_bound_gains, intercept = 0, color = "#90EE90", linetype = "dashed", lwd = 1) +
@@ -104,6 +104,28 @@ function(input, output, session) {
         legend.justification = c(0, 1),
         legend.background = element_rect(fill = "transparent")
       )
+    
+    if (input$opt_layer) {
+      p <- p +
+        annotate(
+          geom = "text", x = run*.45, y = run*.7, 
+          label = "Probable", hjust = 0, vjust = 0, size = 4, col = "#00c805"
+        ) +
+        geom_point(aes(x=run*.5,y = run*.65), colour = "#00c805") +
+        annotate(
+          geom = "text", x = -run*.8, y = run*.2, 
+          label = "Improbable", hjust = 0, vjust = 0, size = 4, col = "white"
+        ) +
+        geom_point(aes(x=-run*.8,y = run*.15), colour = "white") +
+        annotate(
+          geom = "text", x = -run*.88, y = run*.1, 
+          label = "Impossible", hjust = 0, vjust = 0, size = 4, col = "#ff5000"
+        ) +
+        geom_point(aes(x=-run*.88,y = run*.05), colour = "#ff5000")
+    }
+    
+    p
+    
   })
   
 }

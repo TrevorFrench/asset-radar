@@ -8,7 +8,8 @@ pageWithSidebar(
   headerPanel('Asset Radar'),
   sidebarPanel(
     dateInput("first_date", "Select a date:", value = '2016-01-01'),
-    dateInput("last_date", "Select a date:", value = '2023-06-14')
+    dateInput("last_date", "Select a date:", value = '2023-06-14'),
+    checkboxInput("opt_layer", label = "Add your data:", value = FALSE)
   ),
   mainPanel(
     plotOutput('plot1')
