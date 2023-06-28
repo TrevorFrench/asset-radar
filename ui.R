@@ -2,7 +2,7 @@
 # so don't give the user the option to select
 # a categorical variable
 # vars <- setdiff(names(iris), "Species")
-
+library(shiny)
 # NEED TO LAYER OBSERVATIONS
 pageWithSidebar(
   headerPanel('Asset Radar'),

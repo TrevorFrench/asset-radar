@@ -1,5 +1,5 @@
 # asset-radar
 
 - need to analyse lt gains on a lot-by-lot basis
-- modularize functions
+- Modular functions functions
 - add support for assets
